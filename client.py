@@ -1,6 +1,6 @@
 import socket, pickle
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-server.connect(('127.0.0.1', 4000))
+server.connect((input("Введите Ip сервера:"), 4000))
 nickname=input("Никнейм:")
 while True:
     data = nickname,":",input("Напишите сообшение:")

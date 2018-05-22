@@ -1,17 +1,16 @@
 import socket, select, pickle
 
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-server.bind(('', 4000))
+server.bind((input("Введите Ip для сервера:"), 4000))
 server.listen(5)
 nickname=input("Никнейм:"),"(admin)"
 clients = []
 while True:
     Connections, wlist, xlist = select.select([server], [], [], 0.05)
-
     for Connection in Connections:
         client, Informations = Connection.accept()
         clients.append(client)
-
+        print("Новый пользователь зашел")
     clientsList = []
     try:
         clientsList, wlist, xlist = select.select(clients, [], [], 0.05)
@@ -21,6 +20,9 @@ while True:
         for clientInList in clientsList:
             data = clientInList.recv(1024)
             data = pickle.loads(data)
+            print("-----------------------")
+            print("в чате",len(clients)+1)
+            print("-----------------------")
             print(data[0],data[1],data[2])
             data = nickname,":",input("Напишите сообщение:")
             data = pickle.dumps(data)
