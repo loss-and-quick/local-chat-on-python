@@ -1,8 +1,9 @@
 import socket, select, pickle
-
+from termcolor import colored
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server.bind((input("Введите Ip для сервера:"), 4000))
-server.listen(5)
+server.listen(int(input("Введите скольок максимально пользователей на сервере> ")))
+
 nickname=input("Никнейм:"),"(admin)"
 clients = []
 while True:
@@ -20,11 +21,11 @@ while True:
         for clientInList in clientsList:
             data = clientInList.recv(1024)
             data = pickle.loads(data)
-            print("-----------------------")
-            print("в чате",len(clients)+1)
-            print("-----------------------")
             print(data[0],data[1],data[2])
-            data = nickname,":",input("Напишите сообщение:")
+            data = nickname,"> ",input("Напишите сообщение:")
+            print(colored("-----------------------", "green"))
+            print(colored("в чате", len(clients) + 1, "green"))
+            print(colored("-----------------------", "green"))
             data = pickle.dumps(data)
             clientInList.send(data)
 

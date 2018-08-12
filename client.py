@@ -3,7 +3,7 @@ server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server.connect((input("Введите Ip сервера:"), 4000))
 nickname=input("Никнейм:")
 while True:
-    data = nickname,":",input("Напишите сообшение:")
+    data = nickname,"> ",input("Напишите сообшение:")
     data = pickle.dumps(data)
     server.send(data)
     data = server.recv(1024)
